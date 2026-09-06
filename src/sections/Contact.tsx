@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { gsap, prefersReducedMotion } from '../lib/motion'
 import { CharBoom } from '../components/CharBoom'
-import { ScrollRevealText } from '../components/ScrollRevealText'
 import { site, socials } from '../data/site'
 
 export function Contact() {

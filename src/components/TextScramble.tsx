@@ -5,22 +5,18 @@ import { prefersReducedMotion, splitChars } from '../lib/motion'
 interface TextScrambleProps {
   text: string
   className?: string
-  element?: 'h1' | 'h2' | 'h3' | 'p' | 'span' | 'div'
-  delay?: number
-  duration?: number
   stagger?: number
+  duration?: number
+  delay?: number
   reveal?: boolean
 }
-
-const SCRAMBLE_CHARS = '!@#$%^&*<>?/.,;:_+-=~`|\\[]{}\'\"'
 
 export function TextScramble({
   text,
   className = '',
-  element = 'div',
-  delay = 0,
-  duration = 1.2,
   stagger = 0.04,
+  duration = 1.2,
+  delay = 0,
   reveal = true,
 }: TextScrambleProps) {
   const rootRef = useRef<HTMLDivElement>(null)
@@ -29,7 +25,6 @@ export function TextScramble({
     const el = rootRef.current
     if (!el || prefersReducedMotion()) return
 
-    const originalText = el.textContent ?? ''
     const chars = splitChars(el)
 
     const ctx = gsap.context(() => {
@@ -52,10 +47,9 @@ export function TextScramble({
     return () => ctx.revert()
   }, [text, delay, duration, stagger, reveal])
 
-  const Element = element as string
   return (
-    <Element ref={rootRef} className={`text-scramble ${className}`}>
+    <div ref={rootRef} className={`text-scramble ${className}`}>
       {text}
-    </Element>
+    </div>
   )
 }

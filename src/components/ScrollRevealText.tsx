@@ -5,28 +5,18 @@ import { prefersReducedMotion, splitWords } from '../lib/motion'
 interface ScrollRevealTextProps {
   text: string
   className?: string
-  element?: 'h1' | 'h2' | 'h3' | 'h4' | 'p' | 'span' | 'div'
   stagger?: number
   duration?: number
   yOffset?: number
-  rotate?: number
-  scale?: number
-  ease?: string
-  delay?: number
   direction?: 'up' | 'left' | 'right' | '360'
 }
 
 export function ScrollRevealText({
   text,
   className = '',
-  element = 'div',
   stagger = 0.06,
   duration = 1.0,
   yOffset = 80,
-  rotate = 0,
-  scale = 1,
-  ease = 'power3.out',
-  delay = 0,
   direction = 'up',
 }: ScrollRevealTextProps) {
   const rootRef = useRef<HTMLDivElement>(null)
@@ -70,9 +60,8 @@ export function ScrollRevealText({
           rotateY: 0,
           scale: 1,
           duration,
-          ease,
+          ease: 'power3.out',
           stagger,
-          delay,
           scrollTrigger: {
             trigger: el,
             start: 'top 85%',
@@ -84,12 +73,11 @@ export function ScrollRevealText({
     }, el)
 
     return () => ctx.revert()
-  }, [text, stagger, duration, yOffset, rotate, scale, ease, delay, direction])
+  }, [text, stagger, duration, yOffset, direction])
 
-  const Element = element as string
   return (
-    <Element ref={rootRef} className={`scroll-reveal-text ${className}`}>
+    <div ref={rootRef} className={`scroll-reveal-text ${className}`}>
       {text}
-    </Element>
+    </div>
   )
 }

@@ -5,25 +5,11 @@ import { prefersReducedMotion, splitChars } from '../lib/motion'
 interface CharBoomProps {
   text: string
   className?: string
-  element?: 'h1' | 'h2' | 'h3' | 'p' | 'span' | 'div'
-  stagger?: number
-  duration?: number
-  yBoom?: number
-  rotateBoom?: number
-  scaleBoom?: number
-  bounce?: boolean
 }
 
 export function CharBoom({
   text,
   className = '',
-  element = 'div',
-  stagger = 0.08,
-  duration = 0.8,
-  yBoom = 150,
-  rotateBoom = 30,
-  scaleBoom = 1.5,
-  bounce = true,
 }: CharBoomProps) {
   const rootRef = useRef<HTMLDivElement>(null)
 
@@ -41,19 +27,18 @@ export function CharBoom({
         y: 0,
         rotate: 0,
         scale: 1,
-        duration,
-        stagger,
-        ease: bounce ? 'elastic.out(1, 0.5)' : 'power3.out',
+        duration: 0.6,
+        stagger: 0.08,
+        ease: 'elastic.out(1, 0.5)',
       })
     }, el)
 
     return () => ctx.revert()
-  }, [text, stagger, duration, yBoom, rotateBoom, scaleBoom, bounce])
+  }, [text])
 
-  const Element = element as string
   return (
-    <Element ref={rootRef} className={`char-boom ${className}`}>
+    <div ref={rootRef} className={`char-boom ${className}`}>
       {text}
-    </Element>
+    </div>
   )
 }
