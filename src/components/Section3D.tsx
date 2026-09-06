@@ -1,5 +1,6 @@
-import { useRef, ReactNode } from 'react'
-import { gsap, prefersReducedMotion, ScrollTrigger } from '../lib/motion'
+import { useEffect, useRef } from 'react'
+import { gsap, prefersReducedMotion } from '../lib/motion'
+import type { ReactNode } from 'react'
 
 interface Section3DProps {
   children: ReactNode
@@ -16,9 +17,6 @@ export function Section3D({ children, className = '', reveal = 'up', stagger = f
     const el = rootRef.current
     if (!el || prefersReducedMotion()) return
 
-    const children = el.children
-    const items = stagger ? Array.from(children) : [el]
-
     const ctx = gsap.context(() => {
       const baseVars: gsap.TweenVars = {
         duration,
@@ -33,7 +31,7 @@ export function Section3D({ children, className = '', reveal = 'up', stagger = f
 
       if (stagger) {
         gsap.fromTo(
-          items,
+          Array.from(el.children),
           { opacity: 0, y: 80, rotateX: -20, rotateY: 20 },
           { opacity: 1, y: 0, rotateX: 0, rotateY: 0, stagger: 0.15, ...baseVars }
         )
@@ -61,7 +59,7 @@ export function Section3D({ children, className = '', reveal = 'up', stagger = f
             fromVars.opacity = 0
             break
         }
-        gsap.fromTo(items, fromVars, { ...baseVars })
+        gsap.fromTo(el.children, fromVars, { ...baseVars })
       }
     }, el)
 

@@ -1,12 +1,12 @@
-import { useRef, useState } from 'react'
-import { gsap, prefersReducedMotion, ScrollTrigger } from '../lib/motion'
+import { useEffect, useRef, useState } from 'react'
+import { gsap, prefersReducedMotion } from '../lib/motion'
 import { services } from '../data/site'
 
 export function Services() {
   const root = useRef<HTMLUListElement>(null)
   const [open, setOpen] = useState<string | null>(services[0].number)
 
-  useRef(() => {
+  useEffect(() => {
     const el = root.current
     if (!el || prefersReducedMotion()) return
 

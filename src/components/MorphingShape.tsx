@@ -1,9 +1,11 @@
 import { useEffect, useRef } from 'react'
-import { gsap, prefersReducedMotion } from '../lib/motion'
+import { gsap } from 'gsap'
 
 interface MorphingShapeProps {
   top?: string
   left?: string
+  right?: string
+  bottom?: string
   size?: string
   color?: string
   rotate?: number
@@ -15,6 +17,8 @@ interface MorphingShapeProps {
 export function MorphingShape({
   top = '0',
   left = '0',
+  right = 'auto',
+  bottom = 'auto',
   size = '20rem',
   color = 'rgba(107, 76, 255, 0.06)',
   rotate = 45,
@@ -61,6 +65,8 @@ export function MorphingShape({
         position: 'absolute',
         top,
         left,
+        right: right === 'auto' ? undefined : right,
+        bottom: bottom === 'auto' ? undefined : bottom,
         width: size,
         height: size,
         background: color,
