@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef } from 'react'
-import { gsap, prefersReducedMotion, splitWords } from '../lib/motion'
+import { gsap, prefersReducedMotion, splitWords, ScrollTrigger } from '../lib/motion'
 
 export function Manifesto() {
   const root = useRef<HTMLElement>(null)
@@ -14,9 +14,11 @@ export function Manifesto() {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         words,
-        { opacity: 0.14 },
+        { opacity: 0.14, rotateY: 90, y: 40 },
         {
           opacity: 1,
+          y: 0,
+          rotateY: 0,
           stagger: 0.08,
           ease: 'none',
           scrollTrigger: {
@@ -27,6 +29,7 @@ export function Manifesto() {
           },
         },
       )
+      gsap.fromTo(el.querySelectorAll<HTMLElement>('.section-index, .kicker'), { opacity: 0, y: 30, rotateX: -10 }, { opacity: 1, y: 0, rotateX: 0, duration: 0.8, stagger: 0.1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 78%' } })
     }, el)
 
     return () => {

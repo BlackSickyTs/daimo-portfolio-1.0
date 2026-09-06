@@ -1,8 +1,31 @@
+import { useRef } from 'react'
+import { gsap, prefersReducedMotion, ScrollTrigger } from '../lib/motion'
 import { site } from '../data/site'
 
 export function About() {
+  const root = useRef<HTMLElement>(null)
+
+  useRef(() => {
+    const el = root.current
+    if (!el || prefersReducedMotion()) return
+
+    const ctx = gsap.context(() => {
+      const name = el.querySelector<HTMLElement>('.about-name')
+      const role = el.querySelector<HTMLElement>('.about-role')
+      const copy = el.querySelector<HTMLElement>('.about-copy')
+      const facts = el.querySelectorAll<HTMLElement>('.facts div')
+
+      gsap.fromTo(name, { opacity: 0, y: 60, rotateX: -10 }, { opacity: 1, y: 0, rotateX: 0, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 80%' } })
+      gsap.fromTo(role, { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.8, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 82%' } })
+      gsap.fromTo(copy, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 85%' } })
+      gsap.fromTo(facts, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, stagger: 0.15, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%' } })
+    }, el)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
-    <section id="about" className="section">
+    <section id="about" ref={root} className="section">
       <div className="about-grid">
         <div>
           <span className="section-index">05 — Person</span>

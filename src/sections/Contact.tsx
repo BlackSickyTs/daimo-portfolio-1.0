@@ -1,8 +1,29 @@
+import { useRef } from 'react'
+import { gsap, prefersReducedMotion, ScrollTrigger } from '../lib/motion'
 import { site, socials } from '../data/site'
 
 export function Contact() {
+  const root = useRef<HTMLElement>(null)
+
+  useRef(() => {
+    const el = root.current
+    if (!el || prefersReducedMotion()) return
+
+    const ctx = gsap.context(() => {
+      const title = el.querySelector<HTMLElement>('.contact-title')
+      const cta = el.querySelector<HTMLElement>('.cta')
+      const links = el.querySelectorAll<HTMLElement>('.contact-links span')
+
+      gsap.fromTo(title, { opacity: 0, y: 60, rotateX: -10 }, { opacity: 1, y: 0, rotateX: 0, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 75%' } })
+      gsap.fromTo(cta, { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.8, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 78%' } })
+      gsap.fromTo(links, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.12, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 82%' } })
+    }, el)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
-    <section id="contact" className="section contact">
+    <section id="contact" ref={root} className="section contact">
       <span className="section-index">08 — Close</span>
       <h2 className="contact-title">
         Let&apos;s build

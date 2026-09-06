@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { ExploreLink } from '../components/ExploreLink'
 import { ProjectVisual } from '../components/ProjectVisual'
+import { Card3D } from '../components/Card3D'
 import { projects } from '../data/site'
 import { gsap, prefersReducedMotion } from '../lib/motion'
 
@@ -15,7 +16,7 @@ export function Work() {
     if (!el || prefersReducedMotion()) return
 
     const ctx = gsap.context(() => {
-      gsap.utils.toArray<HTMLElement>('.project').forEach((project) => {
+      gsap.utils.toArray<HTMLElement>('.project').forEach((project, index) => {
         const visual = project.querySelector('.visual')
         gsap.from(project.querySelector('.project-copy'), {
           opacity: 0,
@@ -26,13 +27,15 @@ export function Work() {
             trigger: project,
             start: 'top 82%',
           },
+          delay: index * 0.1,
         })
         if (visual) {
           gsap.fromTo(
             visual,
-            { clipPath: 'inset(100% 0 0 0)' },
+            { clipPath: 'inset(100% 0 0 0)', rotateY: -15 },
             {
               clipPath: 'inset(0% 0 0 0)',
+              rotateY: 0,
               duration: 1.1,
               ease: 'power4.inOut',
               scrollTrigger: {
@@ -56,11 +59,7 @@ export function Work() {
       </div>
       <div className="work-list">
         {projects.map((project, index) => (
-          <article
-            key={project.slug}
-            className={`project is-${project.layout}`}
-            data-cursor="VIEW"
-          >
+          <Card3D key={project.slug} className={`project is-${project.layout}`} tilt={12} glow="rgba(107, 76, 255, 0.12)">
             <div className="project-copy">
               <span className="meta">
                 {project.number} / {project.year}
@@ -84,7 +83,7 @@ export function Work() {
             >
               <ProjectVisual variant={variants[index] ?? 'a'} title={project.title} />
             </Link>
-          </article>
+          </Card3D>
         ))}
       </div>
     </section>
