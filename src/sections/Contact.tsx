@@ -27,11 +27,11 @@ export function Contact() {
     <section id="contact" ref={root} className="section contact">
       <span className="section-index">08 — Close</span>
       <h2 className="contact-title">
-        <CharBoom text="Let's build" stagger={0.1} duration={0.6} yBoom={120} rotateBoom={25} />
+        <CharBoom text="Let's build" />
         <br />
-        <CharBoom text="something" stagger={0.1} duration={0.6} yBoom={120} rotateBoom={25} />
+        <CharBoom text="something" />
         <br />
-        <CharBoom text="interesting." stagger={0.1} duration={0.6} yBoom={120} rotateBoom={25} />
+        <CharBoom text="interesting." />
       </h2>
       <a className="cta" href={`mailto:${site.email}`} data-cursor="WRITE">
         Start a project <i aria-hidden="true">→</i>
