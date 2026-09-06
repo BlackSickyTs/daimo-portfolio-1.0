@@ -6,7 +6,7 @@ export const site = {
   availability: 'Available for select projects',
   location: 'Based online',
   year: '2026',
-  email: 'hello@daimo',
+  email: 'mustafafarooqfarooq68@gmail.com',
   emailNote: 'Replace with your address',
 } as const
 
@@ -18,9 +18,9 @@ export const navItems = [
 ] as const
 
 export const socials = [
-  { label: 'Instagram', href: '#' },
-  { label: 'Are.na', href: '#' },
-  { label: 'GitHub', href: '#' },
+  { label: 'Instagram', href: 'https://instagram.com/daimo.luffy' },
+  { label: 'GitHub', href: 'https://github.com/BlackSickyTs' },
+  { label: 'Discord', href: 'https://discord.gg/wasted__35' },
 ] as const
 
 export type ProjectLayout = 'right' | 'left' | 'full' | 'split'

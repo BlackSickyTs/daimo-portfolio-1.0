@@ -1695,6 +1695,163 @@ button {
   transform: translate(-50%, -50%);
 }
 
+/* Text Scramble Effects */
+.text-scramble {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+.text-scramble .char {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* Char Boom Effects */
+.char-boom {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+.char-boom .char {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* Scroll Reveal Text */
+.scroll-reveal-text {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+.scroll-reveal-text .word-wrap {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+.scroll-reveal-text .word {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* Parallax Text Depth */
+.parallax-text {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Typewriter effect */
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: var(--ink); }
+}
+
+.typewriter {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid var(--ink);
+  animation: typewriter 2s steps(30) forwards, blink-caret 0.75s step-end infinite;
+}
+
+/* Text pop-in stagger */
+@keyframes pop-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) translateY(50px) rotateX(-90deg);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.1) translateY(-5px) rotateX(5deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0) rotateX(0);
+  }
+}
+
+.pop-in {
+  animation: pop-in 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+/* Text blur reveal */
+@keyframes blur-reveal {
+  0% {
+    filter: blur(12px);
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+  100% {
+    filter: blur(0);
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.blur-reveal {
+  animation: blur-reveal 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+/* Glitch text effect */
+@keyframes glitch-1 {
+  0%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }
+  10% { clip-path: inset(20% 0 40% 0); transform: translate(-3px, 2px); }
+  20% { clip-path: inset(60% 0 10% 0); transform: translate(3px, -2px); }
+  30% { clip-path: inset(40% 0 30% 0); transform: translate(-2px, -1px); }
+}
+
+@keyframes glitch-2 {
+  0%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }
+  15% { clip-path: inset(50% 0 20% 0); transform: translate(2px, -3px); }
+  35% { clip-path: inset(10% 0 60% 0); transform: translate(-3px, 1px); }
+  50% { clip-path: inset(70% 0 5% 0); transform: translate(1px, 2px); }
+}
+
+.glitch-text {
+  position: relative;
+  animation: glitch-1 3s infinite, glitch-2 4s infinite;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.glitch-text::before {
+  color: var(--violet);
+  z-index: -1;
+  animation: glitch-1 3s infinite;
+}
+
+.glitch-text::after {
+  color: var(--metal);
+  z-index: -2;
+  animation: glitch-2 4s infinite;
+}
+
+/* Scroll progress line */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--violet), var(--metal));
+  z-index: 999;
+  transform-origin: left center;
+  will-change: transform;
+}
+
 @media (max-width: 980px) {
   .hero-depth-1,
   .hero-depth-2,
